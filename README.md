@@ -19,6 +19,8 @@ the data.
 - Tools that are tailored for exploratory data analytics using DuckDB like `get_sample_data`,
   `get_table_schema_and_stats`. *Helps the LLM leverage DuckDB capabilities instead of generating the same SQL over and
   over again.*
+- Default timeout of 60 seconds for all queried. *This will save you if LLMs manage to mess up in spite of all the other
+  safeguards.*
 
 ## Installation
 
@@ -30,12 +32,20 @@ unintended side effect). There are two recommended ways to run this locally:
 
 ### uv
 
+```shell
+uvx --from git+https://github.com/thedevtoolsmith/duckdb-eda-mcp-server dems --db <DUCKDB_FILE_PATH>
+```
+
 ### docker
+
+```shell
+
+```
 
 ## Roadmap
 
-If there is enough interest, following features are planned:
+If there is enough interest, the following features are planned:
 
 - [ ] Add the DuckDB documentation as a resource
-- [ ] Add tools to give column summary
-- [ ] Add prompts to help users with EDA related use cases
+- [ ] Add tools to give a column summary
+- [ ] Add prompts to help users with EDA-related use cases
