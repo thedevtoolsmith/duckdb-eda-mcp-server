@@ -1,0 +1,18 @@
+[project]
+name = "dems"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "duckdb>=1.2.1",
+    "fastmcp>=2.5.1",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.5",
+]
+
+[tool.ruff]
+line-length = 120
