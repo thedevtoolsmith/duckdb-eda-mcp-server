@@ -3,8 +3,8 @@
 ## About
 
 DEMS is intended to be helpful for anyone who wants to do exploratory data analytics, i.e., do some quick and dirty
-analytics of some data to present an argument or to prove a point using DuckDB. (If you're not using DuckDB, you should
-do that first.)
+analytics of some data to present an argument or to prove a point using DuckDB. (If you're not using DuckDB, [check it
+out](https://duckdb.org/). It's a *really* fast columnar, in-process DB)
 
 You might be a developer/product manager who wants to make a business case for building a new feature, or somebody
 importing and analysing some data for writing a blog post. This MCP server is designed to help you quickly sift through
@@ -25,21 +25,10 @@ the data.
 ## Installation
 
 This MCP has to be installed and run locally, as DuckDB will be present in your file system (Data privacy is an
-unintended side effect). There are two recommended ways to run this locally:
-
-- Using `uv`
-- Using `docker`
-
-### uv
+unintended side effect). The recommended way to run this locally is using `uv`
 
 ```shell
 uvx --from git+https://github.com/thedevtoolsmith/duckdb-eda-mcp-server dems --db <DUCKDB_FILE_PATH>
-```
-
-### docker
-
-```shell
-
 ```
 
 ## Roadmap
