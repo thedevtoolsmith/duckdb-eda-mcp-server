@@ -287,3 +287,5 @@ fabric.properties
 
 # Test DuckDB files
 *.duckdb
+
+.vscode/

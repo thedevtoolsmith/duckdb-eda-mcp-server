@@ -4,7 +4,7 @@ from pathlib import Path
 from sys import stdout
 from typing import Annotated, Literal
 
-from fastmcp import Context, FastMCP
+from fastmcp import FastMCP
 from pydantic import Field
 
 from .database import DuckDB
@@ -27,23 +27,15 @@ def run_server(database_path: str):
         annotations={"title": "Execute SQL query", "readOnly": True, "idempotentHint": True},
     )
     def execute_query(query: Annotated[str, Field(description="The SQL query to be executed.")]):
-        db.safe_execute_query(query)
+        return db.safe_execute_query(query)
 
     @server.tool(
         description="Get all the tables with their schema and some statistical information about the data in them.",
         annotations={"title": "Generate DB Summary", "readOnly": True, "idempotentHint": True},
     )
-    async def generate_db_summary(ctx: Context) -> str:
+    async def generate_db_summary() -> dict:
         stats = {table: db.get_table_schema_and_stats(table) for table in db.list_tables()}
-        await ctx.info("Got stats. Now, converting it to natural language.")
-        prompt = (
-            f"The data that I am about to pass contains a list of all the tables in a database and its columns, "
-            f"their data types and some stats regarding the data. Convert the given data into natural language, "
-            f"so it is easier for a person to understand the table and the database structure. "
-            f"Here is the data {stats}."
-        )
-        response = await ctx.sample(prompt)
-        return response.text
+        return stats
 
     @server.tool(
         description="Get a list of all the user defined tables in the database.",
@@ -81,4 +73,4 @@ def run_server(database_path: str):
 
         return db.import_data(file_type, table_name, file_path)
 
-    server.run()
+    server.run(transport="streamable-http", path="/", host="0.0.0.0", port=8000)
