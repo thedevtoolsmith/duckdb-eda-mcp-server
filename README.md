@@ -22,13 +22,32 @@ the data.
 - Default timeout of 60 seconds for all queried. *This will save you if LLMs manage to mess up in spite of all the other
   safeguards.*
 
-## Installation
+## Server Installation
 
 This MCP has to be installed and run locally, as DuckDB will be present in your file system (Data privacy is an
 unintended side effect). The recommended way to run this locally is using `uv`
 
 ```shell
 uvx --from git+https://github.com/thedevtoolsmith/duckdb-eda-mcp-server dems --db <DUCKDB_FILE_PATH>
+```
+
+## Integration with Client
+
+The MCP server can be integrated into an MCP client by copying and pasting the following config block into your config
+file:
+
+```json
+{
+  "mcpServers": {
+    "dems": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "http://localhost:8000/sse"
+      ]
+    }
+  }
+}
 ```
 
 ## Roadmap
